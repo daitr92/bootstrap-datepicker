@@ -1073,7 +1073,7 @@
 				}
 
 				clsName = $.unique(clsName);
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
+				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '><div class="day">'+prevMonth.getUTCDate() + '</div></td>');
 				tooltip = null;
 				if (prevMonth.getUTCDay() === this.o.weekEnd){
 					html.push('</tr>');
@@ -1245,6 +1245,9 @@
 			if (!target.hasClass('disabled')){
 				// Clicked on a day
 				if (target.hasClass('day')){
+					if(!target.is('td')){
+						target = target.closest('td');
+					}
 					day = parseInt(target.text(), 10) || 1;
 					year = this.viewDate.getUTCFullYear();
 					month = this.viewDate.getUTCMonth();

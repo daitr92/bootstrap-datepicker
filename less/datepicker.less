@@ -62,13 +62,16 @@
 		-ms-user-select: none;
 		user-select: none;
 	}
-	td, th {
+	th {
 		text-align: center;
 		width: 20px;
 		height: 20px;
 		.border-radius(4px);
 
 		border: none;
+	}
+	td{
+		text-align: center;
 	}
 	// Inline display inside a table presents some problems with
 	// border and background colors.
@@ -78,10 +81,34 @@
 		}
 	}
 	table tr td {
+		&.day{
+			text-align: center;
+			vertical-align: middle;
+			color: @textColorDefault;
+			>div.day{
+				padding: 8px;
+				border: 1px solid transparent;
+				margin: 0 auto;
+				display: inline-block;
+				width: 34px;
+				height: 34px;
+				vertical-align: middle;
+				line-height: 1em;
+			}
+
+		}
+		&.day:hover{
+			>div.day{
+				border: 1px solid @linkColor;
+				.border-radius(@baseBorderRadius);
+			}
+		}
+
 		&.day:hover,
 		&.day.focused {
 			background: @grayLighter;
 			cursor: pointer;
+			color: @linkColor;
 		}
 		&.old,
 		&.new {
@@ -103,14 +130,14 @@
 		&.today.disabled:hover {
 			@todayBackground: lighten(@orange, 30%);
 			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
-			color: #000;
+			color: @textColorDefault;
 		}
 		&.today:hover:hover { // Thank bootstrap 2.0 for this selector...
 			// TODO: Bump min BS to 2.1, use @textColor in buttonBackground above
-			color: #000;
+			color: @linkColor;
 		}
 		&.today.active:hover {
-			color: #fff;
+			color: @linkColor;
 		}
 		&.range,
 		&.range:hover,
@@ -118,6 +145,7 @@
 		&.range.disabled:hover {
 			background: @grayLighter;
 			.border-radius(0);
+			color: @linkColor;
 		}
 		&.range.today,
 		&.range.today:hover,
@@ -132,17 +160,26 @@
 		&.selected.disabled,
 		&.selected.disabled:hover {
 			.buttonBackground(lighten(@grayLight, 10), darken(@grayLight, 10));
-			color: #fff;
-			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+			color: @linkColor;
+			.border-radius(@baseBorderRadius);
+			border: 1px solid @linkColor;
+			//text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
-		&.active,
-		&.active:hover,
 		&.active.disabled,
 		&.active.disabled:hover {
 			.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
-			color: #fff;
-			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+			color: #d3d3d3;
+			//text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
+		&.active,
+		&.active:hover{
+			color: @linkColor;
+			>div.day{
+				border: 1px solid @linkColor;
+				.border-radius(@baseBorderRadius);
+			}
+		}
+
 		span {
 			display: block;
 			width: 23%;
@@ -167,8 +204,11 @@
 			&.active.disabled,
 			&.active.disabled:hover {
 				.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
-				color: #fff;
-				text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+				color: #d3d3d3;
+			}
+			&.active,
+			&.active:hover{
+				color: @linkColor;
 			}
 			&.old,
 			&.new {

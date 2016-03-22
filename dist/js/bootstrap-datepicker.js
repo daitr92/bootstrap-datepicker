@@ -1,5 +1,5 @@
 /*!
- * Datepicker for Bootstrap v1.6.0 (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.7.0-dev (https://github.com/eternicode/bootstrap-datepicker)
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
@@ -381,7 +381,8 @@
 			else {
 				this._events = [
 					[this.element, {
-						click: $.proxy(this.show, this)
+						click: $.proxy(this.show, this),
+						keydown: $.proxy(this.keydown, this)
 					}]
 				];
 			}
@@ -890,8 +891,11 @@
 			}
 			if (this.dates.contains(date) !== -1)
 				cls.push('active');
-			if (!this.dateWithinRange(date) || this.dateIsDisabled(date)){
+			if (!this.dateWithinRange(date)){
 				cls.push('disabled');
+			}
+			if (this.dateIsDisabled(date)){
+				cls.push('disabled', 'disabled-date');
 			}
 			if ($.inArray(date.getUTCDay(), this.o.daysOfWeekHighlighted) !== -1){
 				cls.push('highlighted');
@@ -1053,7 +1057,7 @@
 				}
 
 				clsName = $.unique(clsName);
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
+				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '><div class="day">'+prevMonth.getUTCDate() + '</div></td>');
 				tooltip = null;
 				if (prevMonth.getUTCDay() === this.o.weekEnd){
 					html.push('</tr>');
@@ -1225,10 +1229,13 @@
 			if (!target.hasClass('disabled')){
 				// Clicked on a day
 				if (target.hasClass('day')){
+					if(!target.is('td')){
+						target = target.closest('td');
+					}
 					day = parseInt(target.text(), 10) || 1;
 					year = this.viewDate.getUTCFullYear();
 					month = this.viewDate.getUTCMonth();
-
+console.log(month)
 					// From last month
 					if (target.hasClass('old')){
 						if (month === 0) {
@@ -2101,7 +2108,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.6.0';
+	$.fn.datepicker.version = '1.7.0-dev';
 
 	/* DATEPICKER DATA-API
 	* ================== */
