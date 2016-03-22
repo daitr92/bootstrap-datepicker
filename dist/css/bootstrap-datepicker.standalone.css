@@ -357,9 +357,6 @@
 .datepicker table tr td.active > div.day,
 .datepicker table tr td.active:hover > div.day {
   border: 1px solid #ed1c24;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
 }
 .datepicker table tr td span {
   display: block;
