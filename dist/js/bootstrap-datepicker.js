@@ -1235,7 +1235,7 @@
 					day = parseInt(target.text(), 10) || 1;
 					year = this.viewDate.getUTCFullYear();
 					month = this.viewDate.getUTCMonth();
-console.log(month)
+
 					// From last month
 					if (target.hasClass('old')){
 						if (month === 0) {
